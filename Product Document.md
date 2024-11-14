@@ -1,4 +1,4 @@
-**2. Product Document with Detailed Explanation**
+**2. Product Document**
 
 ### Overview:
 The Lawyers Collaboration App is a platform that connects consumers in need of legal assistance with lawyers who can offer their expertise. It enables consumers to post legal requests, and lawyers can respond by picking up and accepting these requests. Once a lawyer accepts a request, they can communicate with the consumer to provide assistance. The app's main goal is to make legal services more accessible and efficient.
