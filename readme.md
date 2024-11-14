@@ -1,61 +1,70 @@
-**1. Data Model**
+# Getting Started with Create React App
 
-The app requires a relational database structure to manage both lawyers and consumers effectively. Below is the data model with detailed explanations for each entity:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Entities:
+## Available Scripts
 
-1. **Users**:
-   - **`user_id`** (Primary Key): Unique identifier for each user in the system.
-   - **`user_type`**: Indicates whether the user is a lawyer or a consumer. Possible values: "Lawyer" or "Consumer".
-   - **`name`**: Full name of the user.
-   - **`email`**: Email address of the user, used for login and communication.
-   - **`password_hash`**: Hashed version of the user's password for secure authentication.
-   - **`phone_number`**: Contact number of the user for verification and communication.
-   - **`registration_date`**: Timestamp indicating when the user registered in the system.
-   - **`profile_status`**: Status of the user profile, such as "Active" or "Inactive".
+In the project directory, you can run:
 
-2. **Lawyer Profiles**:
-   - **`lawyer_id`** (Foreign Key to `Users.user_id`): Unique identifier referencing the lawyer in the `Users` table.
-   - **`specialization`**: Area of law the lawyer specializes in (e.g., family law, criminal law).
-   - **`experience_years`**: Number of years the lawyer has been practicing.
-   - **`location`**: The location where the lawyer operates or provides services.
-   - **`availability_status`**: Indicates whether the lawyer is currently available to take new requests.
+### `npm start`
 
-3. **Consumer Profiles**:
-   - **`consumer_id`** (Foreign Key to `Users.user_id`): Unique identifier referencing the consumer in the `Users` table.
-   - **`location`**: The location of the consumer, which can be used to match them with local lawyers.
-   - **`preferred_lawyer_specialization`**: The type of legal service the consumer is most likely to require, used for filtering requests.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-4. **Requests**:
-   - **`request_id`** (Primary Key): Unique identifier for each request created by a consumer.
-   - **`consumer_id`** (Foreign Key to `Users.user_id`): The ID of the consumer who created the request.
-   - **`description`**: Detailed description of the legal issue for which assistance is needed.
-   - **`request_status`**: Status of the request, such as "Open", "Picked", or "Closed".
-   - **`created_at`**: Timestamp indicating when the request was created.
-   - **`picked_by_lawyer_id`** (Foreign Key to `Users.user_id`): ID of the lawyer who has picked the request. If the request is not yet picked, this field will be null.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-5. **Messages** (Communication between lawyer and consumer):
-   - **`message_id`** (Primary Key): Unique identifier for each message.
-   - **`request_id`** (Foreign Key to `Requests.request_id`): The ID of the request to which the message belongs.
-   - **`sender_id`** (Foreign Key to `Users.user_id`): The ID of the user (lawyer or consumer) who sent the message.
-   - **`receiver_id`** (Foreign Key to `Users.user_id`): The ID of the user (lawyer or consumer) who is the recipient of the message.
-   - **`message_text`**: The content of the message exchanged between the lawyer and consumer.
-   - **`sent_at`**: Timestamp indicating when the message was sent.
+### `npm test`
 
-### Relationships:
-- **Users and Lawyer Profiles**: Lawyers are a subset of users, so each lawyer must have a corresponding entry in the `Users` table. The `lawyer_id` in the `Lawyer Profiles` table references the `user_id` in the `Users` table.
-- **Users and Consumer Profiles**: Consumers are also a subset of users, and their profile information is stored in the `Consumer Profiles` table, linked by `consumer_id`.
-- **Users and Requests**: Each request is linked to a consumer via the `consumer_id`. Lawyers can pick requests, and once picked, the `picked_by_lawyer_id` is updated to reflect which lawyer is handling the request.
-- **Requests and Messages**: Messages are linked to requests to facilitate communication between the lawyer and consumer for a specific legal issue. The `sender_id` and `receiver_id` fields help manage the direction of the conversation.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Data Flow Explanation:
-- When a **consumer** registers, an entry is created in the `Users` table, and additional details are stored in the `Consumer Profiles` table.
-- When a **lawyer** registers, an entry is created in the `Users` table, and their specific details are stored in the `Lawyer Profiles` table.
-- **Consumers** can create **requests** that are saved in the `Requests` table. **Lawyers** can view open requests and pick one to assist with, which updates the `picked_by_lawyer_id` field.
-- Once a **request** is picked by a lawyer, the **consumer** and **lawyer** can communicate via the `Messages` table, which keeps track of all messages exchanged.
+### `npm run build`
 
-### Considerations for Implementation:
-- **Data Integrity**: Use foreign key constraints to maintain data integrity across tables (e.g., ensuring that a message references valid `request_id`, `sender_id`, and `receiver_id`).
-- **Security**: Store passwords in a hashed format to protect user data. Implement role-based access control to ensure only authorized users can pick requests or send messages.
-- **Scalability**: Index fields like `request_status`, `picked_by_lawyer_id`, and `specialization` to optimize query performance, especially when filtering requests for lawyers.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
