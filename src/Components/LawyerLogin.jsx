@@ -1,11 +1,33 @@
-import { Box, Button, Checkbox, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField, Typography, InputAdornment, IconButton } from "@mui/material";
-import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { setSession } from "../redux/sessionActions";
-import { useForm,Controller  } from "react-hook-form";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import React from 'react';
+import { Box, Button, Checkbox, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField, Typography, InputAdornment, IconButton } from '@mui/material';
+import axios from 'axios';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { setSession } from '../redux/sessionActions';
+import { useForm, Controller } from 'react-hook-form';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { styled } from '@mui/system';
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  padding: theme.spacing(4),
+  borderRadius: theme.shape.borderRadius,
+  position: 'absolute',
+  left: '5%',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  [theme.breakpoints.down('sm')]: {
+    width: '90%',
+    left: '5%',
+  },
+  [theme.breakpoints.up('md')]: {
+    width: '30%',
+  },
+  [theme.breakpoints.up('lg')]: {
+    width: '25%',
+  },
+}));
 
 function LawyerLogin({ title }) {
   const [otpOpen, setOtpOpen] = useState(false);
@@ -46,9 +68,8 @@ function LawyerLogin({ title }) {
     setShowPassword((prev) => !prev);
   };
 
-
   return (
-    <Container maxWidth="xs" style={{ backgroundColor: '#f0f0f0', padding: '20px', borderRadius: '8px' }}>
+    <StyledContainer maxWidth="xs">
       <Box mt={5}>
         <Typography variant="h5" gutterBottom>{title}</Typography>
         <form onSubmit={handleSubmit(handleLogin)}>
@@ -83,7 +104,6 @@ function LawyerLogin({ title }) {
               />
             )}
           />
-          
           <FormControlLabel control={<Checkbox />} label="Remember Me" />
           <Box mt={2}>
             <Button variant="contained" color="primary" fullWidth type="submit" style={{ backgroundColor: '#007bff', borderRadius: '8px' }}>Login</Button>
@@ -93,11 +113,7 @@ function LawyerLogin({ title }) {
           <Button color="secondary">Forgot Password</Button>
           <Typography>
             Didn't have an account?&nbsp;
-            {title === 'Lawyer Login' ? (
-              <Link to="/lawyer-register">Register</Link>
-            ) : (
-              <Link to="/consumer-register">Register</Link>
-            )}
+            <Link to="/lawyer-register">Register</Link>
           </Typography>
         </Box>
       </Box>
@@ -108,23 +124,13 @@ function LawyerLogin({ title }) {
             fullWidth
             label="OTP"
             margin="normal"
-            type={showPassword ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={toggleShowPassword}>
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOtpClose} color="primary">Submit</Button>
         </DialogActions>
       </Dialog>
-    </Container>
+    </StyledContainer>
   );
 }
 

@@ -1,17 +1,38 @@
-import React from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
-import axios from "axios";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { Box, Button, Container, TextField, Typography, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/system';
 
+const RegisterStyledContainer = styled(Container)(({ theme }) => ({
+  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  padding: theme.spacing(4),
+  borderRadius: theme.shape.borderRadius,
+  position: 'absolute',
+  left: '5%',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  height: '70%', 
+  [theme.breakpoints.down('sm')]: {
+    width: '90%',
+    left: '5%',
+  },
+  [theme.breakpoints.up('md')]: {
+    width: '30%',
+  },
+  [theme.breakpoints.up('lg')]: {
+    width: '25%',
+  },
+}));
 
-function ConsumerLoginRegister() {
-  const [otpOpen, setOtpOpen] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
-  const navigate = useNavigate();
+function ConsumerLoginRegister({ title }) {
+  const [otpOpen, setOtpOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   const handleRegister = async (data) => {
     try {
@@ -45,9 +66,9 @@ function ConsumerLoginRegister() {
   };
 
   return (
-    <Container maxWidth="xs" style={{ backgroundColor: '#f0f0f0', padding: '20px', borderRadius: '8px' }}>
+    <RegisterStyledContainer maxWidth="xs">
       <Box mt={5}>
-        <Typography variant="h5" gutterBottom>Consumer Register Page</Typography>
+        <Typography variant="h5" gutterBottom>{title}</Typography>
         <form onSubmit={handleSubmit(handleRegister)}>
           <Controller
             name="firstName"
@@ -109,7 +130,13 @@ function ConsumerLoginRegister() {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <TextField fullWidth label="Confirm Password" type={showPassword ? 'text' : 'password'} margin="normal" {...field} />
+              <TextField
+                fullWidth
+                label="Confirm Password"
+                type={showPassword ? 'text' : 'password'}
+                margin="normal"
+                {...field}
+              />
             )}
           />
           <Box mt={2}>
@@ -124,23 +151,13 @@ function ConsumerLoginRegister() {
             fullWidth
             label="OTP"
             margin="normal"
-            type={showPassword ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={toggleShowPassword}>
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOtpClose} color="primary">Submit</Button>
         </DialogActions>
       </Dialog>
-    </Container>
+    </RegisterStyledContainer>
   );
 }
 
