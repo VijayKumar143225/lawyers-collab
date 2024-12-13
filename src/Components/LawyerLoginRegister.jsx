@@ -38,6 +38,7 @@ function LawyerLoginRegister({ title }) {
 
   const handleRegister = async (data) => {
     try {
+      console.log(data);
       const response = await axios.post('/api/register-lawyer', data);
       if (response.data.success) {
         setOtpOpen(true);

@@ -5,8 +5,13 @@ import LawyerLogin from './Components/LawyerLogin';
 import ConsumerLogin from './Components/ConsumerLogin';
 import LawyerLoginRegister from './Components/LawyerLoginRegister';
 import ConsumerLoginRegister from './Components/ConsumerLoginRegister';
+import HomePage from './Components/Pages/HomePage';
 import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material';
 import { styled } from '@mui/system';
+
+
+
+
 
 // Create a theme
 const theme = createTheme();
@@ -25,12 +30,13 @@ function App() {
       <CssBaseline />
       <AppContainer>
         <Router>
-          <Navbar />
+          {/* <Navbar /> */}
           <Routes>
-            <Route path="/lawyer-login" element={<LawyerLogin title="Lawyer Login" />} />
+            <Route path="/" element={<HomePage />} />
+            {/* <Route path="/lawyer-login" element={<LawyerLogin title="Lawyer Login" />} />
             <Route path="/consumer-login" element={<ConsumerLogin title="Consumer Login" />} />
             <Route path="/lawyer-register" element={<LawyerLoginRegister title="Lawyer Register Page" />} />
-            <Route path="/consumer-register" element={<ConsumerLoginRegister title="Consumer Register Page" />} />
+            <Route path="/consumer-register" element={<ConsumerLoginRegister title="Consumer Register Page" />} /> */}
           </Routes>
         </Router>
       </AppContainer>
