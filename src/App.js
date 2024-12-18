@@ -8,13 +8,24 @@ import ConsumerLoginRegister from './Components/ConsumerLoginRegister';
 import HomePage from './Components/Pages/HomePage';
 import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material';
 import { styled } from '@mui/system';
+import Settings from './Components/Pages/Settings';
 
 
 
 
 
 // Create a theme
-const theme = createTheme();
+const theme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: '#007bff',
+      },
+      secondary: {
+        main: '#ff4d4d',
+      },
+    },
+});
 
 const AppContainer = styled(Box)({
   backgroundImage: 'url(https://www.google.co.in/imgres?q=lawyer%20decent%20background%20images&imgurl=https%3A%2F%2Fst4.depositphotos.com%2F11249622%2F31374%2Fi%2F450%2Fdepositphotos_313741500-stock-photo-law-justice-symbols-wooden-table.jpg&imgrefurl=https%3A%2F%2Fdepositphotos.com%2Fphotos%2Flaw-background.html&docid=2gP9UXGzUVoGuM&tbnid=LulxQfHPjUEiJM&vet=12ahUKEwjkzLiG7eqJAxXsT2wGHY1lJ7UQM3oECGUQAA..i&w=600&h=337&hcb=2&itg=1&ved=2ahUKEwjkzLiG7eqJAxXsT2wGHY1lJ7UQM3oECGUQAA)',
@@ -33,6 +44,7 @@ function App() {
           {/* <Navbar /> */}
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/settings" element={<Settings />} />
             {/* <Route path="/lawyer-login" element={<LawyerLogin title="Lawyer Login" />} />
             <Route path="/consumer-login" element={<ConsumerLogin title="Consumer Login" />} />
             <Route path="/lawyer-register" element={<LawyerLoginRegister title="Lawyer Register Page" />} />

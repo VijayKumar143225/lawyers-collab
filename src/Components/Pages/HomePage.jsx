@@ -22,6 +22,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import LogoIcon from '@mui/icons-material/Gavel';
 import { styled } from '@mui/system';
+import { Settings } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const MainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -159,6 +161,12 @@ function HomePage() {
               <ContactMailIcon />
             </ListItemIcon>
             <ListItemText primary="Contact" />
+          </ListItem>
+          <ListItem button component={Link} to="/settings" onClick={(e) => e.stopPropagation()}>
+            <ListItemIcon style={{ color: '#fff' }}>
+              <Settings />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
           </ListItem>
         </List>
       </Sidebar>
