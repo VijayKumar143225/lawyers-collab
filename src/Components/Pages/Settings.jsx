@@ -16,8 +16,8 @@ const Settings = () => {
   const settings = useSelector((state) => state.settings);
 
   const [localSettings, setLocalSettings] = useState({
-    theme: settings.theme,
-    notifications: settings.notifications,
+    theme: settings?.theme||'light',
+    notifications: settings?.notifications||false,
   });
 
   useEffect(() => {
@@ -25,7 +25,9 @@ const Settings = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if(settings){
     setLocalSettings(settings);
+    }
   }, [settings]);
 
   const handleSave = () => {
